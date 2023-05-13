@@ -1,0 +1,36 @@
+﻿@model Cyber_Safe_Academy.Models.Quiz
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>                                                                         <!-- Heading for the "Delete" page -->
+
+<h3>Are you sure you want to delete this?</h3>                                          <!-- Confirmation message for deletion -->
+<div>
+    <h4>Quiz</h4>                                                                       <!-- Heading for the quiz section -->
+    <hr />                                                                              <!-- Horizontal line for visual separation -->
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)                                   <!-- Display name label for the quiz name -->
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)                                       <!-- Display the quiz name -->
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TrainingModuleID)                       <!-- Display name label for the training module ID -->
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TrainingModuleID)                           <!-- Display the training module ID -->
+        </dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <!-- Form for deleting the quiz -->
+
+        <input type="hidden" asp-for="ID" />                                      <!-- Hidden input field for the quiz ID -->
+        <input type="submit" value="Delete" class="btn btn-danger" />       <!-- Submit button to initiate the deletion -->
+        |      <!-- Separator between buttons -->
+        <a asp-action="Index">Back to List</a>                                  <!-- Link to navigate back to the list (Index) page -->
+    </form>
+</div>

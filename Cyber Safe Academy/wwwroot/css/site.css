@@ -1,0 +1,40 @@
+﻿/* Use a basic font family and size */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+/* Use bright colors and borders for headings */
+h1, h2, h3 {
+    color: lime;
+    background-color: navy;
+    border: 2px solid yellow;
+    padding: 5px;
+}
+
+/* Use a tiled background image */
+body {
+    background-image: url("https://www.w3schools.com/cssref/paper.gif");
+    background-repeat: repeat;
+}
+
+/* Use animated gifs and marquee for effects */
+img {
+    animation: spin 2s infinite linear;
+}
+
+/* makes images spin */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+marquee {
+    color: fuchsia;
+    font-weight: bold;
+}

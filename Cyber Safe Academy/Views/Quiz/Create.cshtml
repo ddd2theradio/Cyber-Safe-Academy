@@ -1,0 +1,38 @@
+﻿@model Cyber_Safe_Academy.Models.Quiz
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>                     
+
+<h4>Quiz</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>                            <!-- Label for the "Name" input field -->
+                <input asp-for="Name" class="form-control" />                                   <!-- Input field for the "Name" property -->
+                <span asp-validation-for="Name" class="text-danger"></span>                     <!-- Validation error message for the "Name" property -->
+            </div>
+            <div class="form-group">
+                <label asp-for="TrainingModuleID" class="control-label"></label>                <!-- Label for the "TrainingModuleID" input field -->
+                <input asp-for="TrainingModuleID" class="form-control" />                       <!-- Input field for the "TrainingModuleID" property -->
+                <span asp-validation-for="TrainingModuleID" class="text-danger"></span>         <!-- Validation error message for the "TrainingModuleID" property -->
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />                  <!-- Submit button for the form -->
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>                                                      <!-- Link to navigate back to the list (Index) page -->
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

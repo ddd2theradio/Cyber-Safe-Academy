@@ -1,0 +1,93 @@
+﻿@model Cyber_Safe_Academy.Models.QuizAnswersViewModel
+
+@{
+    ViewData["Title"] = "Take Quiz";
+}
+
+<h1>Take Quiz</h1>
+
+<div>
+    <h4>Quiz</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Quiz.Name)       @*Represents the display name for the Quiz's Name property*@
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Quiz.Name)      @*Displays the Quiz's Name property*@
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Quiz.TrainingModuleID)      @*Represents the display name for the Quiz's TrainingModuleID property*@
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Quiz.TrainingModuleID)          @*Displays the Quiz's TrainingModuleID property*@
+        </dd>
+    </dl>
+</div>
+<div>
+    <form method="post" action="">
+        @{var index = 0;}
+        @foreach (var question in Model.Quiz.Questions)         // Loops through each question in the Quiz's Questions collection
+        {
+            <h2> @question.Question</h2> //Displays the question text
+            if (Model.AnswersSubmitted)             //Checks if answers have been submitted
+            {
+                if (index == 0)
+                {
+                    if (!Model.Answer_0correct)
+                    {
+                        <p>answer incorrect</p>;        //Displays "answer incorrect" message for the first question if the answer is incorrect
+                    }
+                    else
+                    {
+                        <p> answer correct</p> //Displays "answer correct" message for the first question if the answer is correct
+                    }
+                }
+                if (index == 1)
+                {
+                    if (!Model.Answer_1correct)
+                    {
+                        <p>answer incorrect</p>;
+                    }
+                    else
+                    {
+                        <p> answer correct</p>
+                    }
+                }
+                if (index == 2)
+                {
+                    if (!Model.Answer_2correct)
+                    {
+                        <p>answer incorrect</p>;
+                    }
+                    else
+                    {
+                        <p> answer correct</p>
+                    }
+                }
+            }
+
+            // Create a random number generator
+            var random = new Random();
+            // Create a list of answers
+            var answers = new List<string> { question.CorrectAnswer, question.IncorrectAnswer1, question.IncorrectAnswer2, question.IncorrectAnswer3 };
+            // Randomize the order of answers
+            var shuffledAnswers = answers.OrderBy(x => random.Next());
+
+            foreach (var answer in shuffledAnswers)         //Loops through each shuffled answer
+            {
+                <p><input type="radio" name="answer_@index" value="@answer" />@answer</p>//Displays radio buttons for each answer option
+
+            }
+            index++;
+        }
+        <input type="hidden" name="quizid" value="@Model.Quiz.ID" />                    @*Represents a hidden input field for storing the Quiz ID *@
+        <input type="submit" value="Submit Answers" class="btn btn-primary" />          @*Represents a button to submit the answers*@
+    </form>
+</div>
+
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Quiz.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

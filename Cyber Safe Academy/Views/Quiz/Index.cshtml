@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Cyber_Safe_Academy.Models.Quiz>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>           <!-- Represents a link to create a new item -->
+</p>
+<table class="table">       <!-- Represents a table for displaying quiz items -->
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)       <!-- Represents the display name for the Name column -->
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrainingModuleID)         <!-- Represents the display name for the TrainingModuleID column -->
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {               <!-- Loops through each item in the model collection -->
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)        <!-- Displays the Name value for each item -->
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrainingModuleID)        <!-- Displays the TrainingModuleID value for each item -->
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |         <!-- Represents a link to edit the current item -->
+                    <a asp-action="TakeQuiz" asp-route-id="@item.ID">Take Quiz</a> |     <!-- Represents a link to take the quiz associated with the current item -->
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>       <!-- Represents a link to delete the current item -->
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

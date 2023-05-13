@@ -1,0 +1,40 @@
+﻿@model Cyber_Safe_Academy.Models.Quiz
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Quiz</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <!-- Form for editing the quiz -->
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>      <!-- Validation summary for model errors -->
+            <input type="hidden" asp-for="ID" />        <!-- Hidden input field for the quiz ID -->
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>        <!-- Label for the quiz name -->
+                <input asp-for="Name" class="form-control" />       <!-- Input field for editing the quiz name -->
+                <span asp-validation-for="Name" class="text-danger"></span>         <!-- Validation message for the quiz name -->
+            </div>
+            <div class="form-group">
+                <label asp-for="TrainingModuleID" class="control-label"></label>        <!-- Label for the training module ID -->
+                <input asp-for="TrainingModuleID" class="form-control" />           <!-- Input field for editing the training module ID -->
+                <span asp-validation-for="TrainingModuleID" class="text-danger"></span>     <!-- Validation message for the training module ID -->
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />        <!-- Submit button to save the changes -->
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}          <!-- Partial view for validation scripts -->
+}

@@ -1,0 +1,48 @@
+﻿@model TrainingModule
+
+@using (Html.BeginForm("Edit", "Training", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name)             <!-- Displays a label for the "Name" property of the model -->
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })          <!-- Creates a text input field for the "Name" property with a CSS class "form-control" -->
+        @Html.ValidationMessageFor(model => model.Name)                 <!-- Displays any validation error message for the "Name" property -->
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Materials)            <!-- Displays a label for the "Materials" property of the model -->
+        <div id="materialsContainer">
+            @for (int i = 0; i < Model.Materials.Count; i++)
+            {
+                <div class="materialItem">
+                    @Html.TextBoxFor(model => model.Materials.ToList<TrainingModuleMaterial>()[i].Material, new { @class = "form-control material-input" })         <!-- Creates a text input field for each material in the "Materials" collection with a CSS class "form-control" -->
+                    <button type="button" class="btn btn-danger removeMaterial">Remove</button>         <!-- Creates a remove button for each material -->
+                </div>
+            }
+        </div>
+        <button type="button" id="addMaterial" class="btn btn-primary">Add Material</button>        <!-- Creates a button to add a new material -->
+    </div>
+
+
+    <input type="submit" value="Save" class="btn btn-primary" />            <!-- Creates a submit button with a value "Save" and CSS classes "btn" and "btn-primary" -->
+}
+<script>
+    $(document).ready(function () {
+        // Add button click event handler
+        $("#addMaterial").click(function () {
+            var nummaterials = $(".material-input").length;
+            var materialInput = `<input type="text" name="[${nummaterials}].Material" class="form-control"/>`;          // Create a new input field for material
+            var removebutton = '<button type="button" class="btn btn-danger removeMaterial">Remove</button>';           // Create a remove button
+
+            $("#materialsContainer").append(materialInput);         // Append the material input to the materials container
+            $("#materialsContainer").append(removebutton);          // Append the remove button to the materials container
+        });
+
+        // Remove button click event handler
+        $(document).on("click", ".removeMaterial", function () {
+            $(this).closest(".materialItem").remove();              // Remove the closest parent element with class "materialItem"
+        });
+    });
+</script>
+

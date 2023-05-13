@@ -1,0 +1,25 @@
+﻿@model List<TrainingModule>
+
+<h1>Content List</h1>
+
+@if (Model.Count > 0)       //Checks if the Model has any items
+{
+    <ul>
+        @foreach (var content in Model)     //Iterates over each item in the Model
+        {
+            <li>
+                <a href="@Url.Action("View", "Training", new { id = content.Id })">@content.Name</a>       <!--Displays a link with the content name and a URL based on the "View" action of the "Training" controller-->
+
+                @if (User.IsInRole("Admin") || User.IsInRole("Teacher"))        //Checks if the user is in the "Admin" or "Teacher" role
+
+
+                {<a class="btn-primary btn" href="@Url.Action("Edit", "Training", new { id = content.Id })">edit</a> <!-- Displays an "edit" button with a URL based on the "Edit" action of the "Training" controller -->
+                }
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No content available.</p> <!-- Displays a paragraph indicating that no content is available -->
+}

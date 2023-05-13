@@ -1,0 +1,63 @@
+﻿@model TrainingModule
+
+<h1>
+    @Model.Name
+</h1>
+@{
+    int index = 0;
+}
+@foreach (var material in Model.Materials)          //Iterates over each material in the Model.Materials collection
+{
+    <!-- Creates a div element with a data-page attribute and class "mat" -->
+    <div data-page="@index" class="mat">
+
+
+        @material.Material                  <!-- Displays the material's Material property -->
+
+
+    </div>
+    index++; <!-- Increments the index variable -->
+}
+<a class="btn btn-primary next-button">next</a>     <!-- Displays a "next" button with the "btn" and "btn-primary" classes -->
+<a class="btn btn-primary back-button">back</a>     <!-- Displays a "back" button with the "btn" and "btn-primary" classes -->
+<script>
+    $(() => {
+        $(".back-button").hide();       //Hides the "back" button
+
+        var numpages = $(".mat").length;    //Retrieves the number of elements with class "mat"
+        let currentpage = 0;                //Initializes the currentpage variable with 0
+        window.updatepage = () => {         //Defines a function named updatepage in the global scope
+            $(".mat").hide();               //Hides all elements with class "mat"
+            $(`[data-page=${currentpage}]`).show();         //Shows the element with a data-page attribute equal to the current page
+        }
+        window.nextpage = () => {               //Defines a function named nextpage in the global scope
+            currentpage++;                      //Increments the currentpage variable
+            updatepage();                       //Calls the updatepage function to update the displayed page
+            if (currentpage >= numpages - 1) {          //Checks if the current page is the last page
+                $(".next-button").hide();       //Hides the "next" button
+            }
+            if (currentpage > 0) {          //Checks if the current page is greater than 0
+                $(".back-button").show();   //Shows the "back" button
+            }
+        }
+        $(".next-button").click(nextpage);  //Attaches the nextpage function to the click event of the "next" button
+        updatepage();           //Calls the updatepage function to initially display the first page
+
+        window.backpage = () => {           //Defines a function named backpage in the global scope
+            currentpage--;                  //Decrements the currentpage variable
+            updatepage();                   //Calls the updatepage function to update the displayed page
+
+            if (currentpage < numpages - 1) {           //Checks if the current page is not the last page
+                $(".next-button").show();               //Shows the "next" button
+            }
+            if (currentpage == 0) {                 //Checks if the current page is the first page
+                $(".back-button").hide();           //Hides the "back" button
+            }
+
+        }
+        $(".back-button").click(backpage);          //Attaches the backpage function to the click event of the "back" button
+    })
+
+
+
+</script>
